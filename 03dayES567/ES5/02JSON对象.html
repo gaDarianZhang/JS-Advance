@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+    // 1. JSON.stringify(obj/arr)
+    //     * js对象(数组)转换为json对象(数组)
+    // 2. JSON.parse(json)
+    //     * json对象(数组)转换为js对象(数组)
+
+    var obj = {name:"zhangsan"};
+    obj = JSON.stringify(obj);
+    console.log(obj);
+    console.log(typeof obj);//string
+    
+    obj = JSON.parse(obj);
+    console.log(obj);
+    console.log(typeof obj);//object
+    
+    console.log(JSON.parse('[1,2,3]'));//数组
+    console.log(JSON.parse('{"age":12}'));
+    console.log(JSON.stringify([{name:"zhangsan"},{age:12}]));//[{"name":"zhangsan"},{"age":12}]
+    console.log(JSON.parse('[{"name":"zhangsan"},{"age":12}]'));
+    //数字不用加引号，数组内的元素不用加引号
+</script>
+</body>
+</html>

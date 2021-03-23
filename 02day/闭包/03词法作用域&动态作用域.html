@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+    // 1. 作用域分类：
+    //      1. 静态作用域(词法作用域):  JavaScript
+    //      2. 动态作用域:  bash
+    // 2. 特征对比：
+    //      1. 词法作用域规定作用域在代码定义的时候就决定了，而不是看调用的时候
+    //      2. 动态作用域是在代码执行的时候决定的
+    //面试题1
+    var scope1 = "Global scope";
+    function checkScope1() {
+        var scope1 = "Local scope";
+        function fn() {
+            return scope1;
+        }
+        return fn();
+    }
+    
+    console.log(checkScope1());//Local scope
+
+    //面试题2
+    var scope2 = "Global scope";
+    function checkScope2() {
+        var scope2 = "Local scope";
+        function fn() {
+            return scope2;
+        }
+        
+        return fn;
+    }
+    
+    console.log(checkScope2()());//Local scope  如果里边是return this.scope2,结果则是Global scope
+
+
+
+    var a = 10;
+    function f1() {
+        console.log(a);
+    }
+
+    function f2(){
+        var a = 20;
+        f1();
+    }
+    f1();//10
+    f2();//10
+</script>
+</body>
+</html>

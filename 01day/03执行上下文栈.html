@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+1. 在全局代码执行前, JS引擎就会创建一个栈来存储管理所有的执行上下文
+2. 在全局执行上下文(window)确定后, 将其添加到栈中(压栈)
+3. 在函数执行上下文创建后, 将其添加到栈中(压栈)
+4. 在当前函数执行完后,将栈顶的对象移除(出栈)
+5. 当所有的代码执行完后, 栈中只剩下window
+-->
+
+<script type="text/javascript">
+
+    // var a = 10;
+    // var bar = function (x) {
+    //     var b = 5
+    //     foo(x + b)
+    // };
+    // var foo = function (y) {
+    //     var c = 5
+    //     console.log(a + c + y)
+    // };
+    // bar(10);
+    //这样子在scope一栏只会同时出现Global和bar或者Global和foo作用域，不会同时出现三个。是因为bar和foo本来就是出于同一个平行的作用域，不是处于一条链上。
+    //如果把foo的定义嵌套在bar内，并且foo也使用了bar中的变量的话，就会出现三个。
+
+    var a = 10;
+    var bar = function (x) {
+        var b = 5;
+        var foo = function (y) {
+            var c = 5;
+            console.log(b + c + y)
+        };
+        foo(x + b);
+    };
+
+    bar(10);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+    //组合继承：
+    //     原型继承+借用构造函数
+    function Person(name, age) {
+        this.name = name;
+        this.age = age;
+        this.f1 = function () {
+            console.log(this);
+        }
+    }
+    Person.prototype.getNmae = function () {
+        return this.name;
+    }
+    function Child(name, age, gender) {
+        // this.name = name;
+        // this.age = age;
+        //借用Person中的代码
+        // Person(name,age);//这是普通函数自调用，this指向window
+        Person.call(this,name,age);
+        this.gender = gender;
+    }
+    
+    Child.prototype = new Person();
+    Child.prototype.constructor = Child;
+
+    var child1 = new Child("zhangsan",21,"女");
+    child1.f1();//Child
+    var f = child1.f1;
+    f();//这样的话输出就是Window了，这就是函数自调用!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    console.log(child1.getNmae());
+    
+</script>
+</body>
+</html>

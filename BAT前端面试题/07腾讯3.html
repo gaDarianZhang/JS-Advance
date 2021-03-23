@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button>按钮1</button>
+<button>按钮2</button>
+<button>按钮3</button>
+<button>按钮4</button>
+<!--
+    1. 难度系数：⭐⭐⭐
+    2. 技术点：
+        1): DOM事件处理
+        2): 闭包
+-->
+
+<script type="text/javascript">
+    
+    /*
+        需求：点击某个按钮，提示第n个
+        问题：下面的实现代码是否正确，如果不正确，请改正。
+     */
+    
+    var btns = document.querySelectorAll('button');
+    //闭包实现
+    for (var i = 0; i < btns.length; i++) {
+        (function (i) {
+            btns[i].onclick = function () {
+                console.log("第"+(i+1)+"个按钮");
+            }
+        })(i)
+    }
+    
+    //用es6的块级作用域  let
+    for (let i = 0; i < btns.length; i++) {
+        btns[i].onclick = function () {
+            console.log("按钮"+(i+1)+"");
+        }
+    }
+
+
+    function fn1() {
+        var a = 2;
+        function fn2() {
+            a++;
+            console.log(a);
+        }
+        return fn2;
+    }
+    var f = fn1();
+    f();//3
+    f();//4
+    f = null;
+
+</script>
+</body>
+</html>

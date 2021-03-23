@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+    // 1. 作用:
+    //     * 定义一个常量
+    // 2. 特点:
+    //     * 不能修改
+    //     * 其它特点同let
+    // 3. 应用:
+    //     * 保存不用改变的数据
+    let obj1 = {name:"zhangsan",age:11};
+    const OBJ = obj1;
+    OBJ.name = "lisi";
+    console.log(obj1.name);
+    
+    const obj2 = {name:"wangwu"};
+    obj2.name = "zhaoliu";
+    console.log(obj2.name);
+
+</script>
+</body>
+</html>

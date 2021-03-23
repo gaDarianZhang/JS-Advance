@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+
+    // function f1() {
+    //     var age = 12;
+    //     function f2() {
+    //         console.log(age+1);
+    //     }
+    //     return f2;
+    // }
+    //
+    // var result = f1();
+    // result();
+
+
+    
+    // let arr = [1,2,3];
+    // function f1([a,b,c]) {
+    //     console.log(a,b,c);
+    // }
+    // f1(arr);
+    // let a = 12, b = "zhansan";
+    // let obj = {
+    //     age: a,
+    //     name: b
+    // };
+    // console.log(obj);
+    // a = 31;
+    // console.log(obj);
+
+    function Person(name,age) {
+        this.name = name;
+        this.age = age;
+        this.getName = ()=> this.name;
+    }
+    Person.prototype.showInfo = function () {
+        console.log('hah',this.name,this.age);
+    }
+    let person1 = new Person('zhangsan',12);
+    person1.showInfo();
+    function Child(name,age) {
+        Person.call(this,name,age);
+    }
+    Child.prototype = Object.create(Person.prototype);
+    Child.prototype.constructor = Child;
+    let child1 = new Child('xiaoming',22);
+    child1.showInfo();
+    console.log(person1);
+    console.log(child1);
+
+</script>
+</body>
+</html>

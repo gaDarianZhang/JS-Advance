@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+1、数据类型：
+    * 数据分为基本的数据类型(String, Number, boolean, Null, Undefined)和对象数据类型
+    - 基本数据类型：
+        特点： 存储的是该对象的实际数据
+    - 对象数据类型：
+        特点： 存储的是该对象在栈中引用，真实的数据存放在堆内存里
+2、复制数据
+    - 基本数据类型存放的就是实际的数据，可直接复制
+        let number2 = 2;
+        let number1 = number2;
+    - 克隆数据：对象/数组
+        1、区别： 浅拷贝/深度拷贝（深拷贝只针对对象/数组，基本数据类型的赋值都是重新开辟内存）
+            判断： 深拷贝是把所有层级的数据都重新存了一份。
+            知识点：对象数据存放的是对象在栈内存的引用，直接复制的是对象的引用
+            let obj = {username: 'kobe'}
+            let obj1 = obj; // obj1 复制了obj在栈内存的引用
+        2、常用的拷贝技术
+            1). arr.concat(): 数组浅拷贝
+            2). arr.slice(): 数组浅拷贝
+            3). JSON.parse(JSON.stringify(arr/obj)): 数组或对象深拷贝, 但不能处理函数数据
+            4). 浅拷贝包含函数数据的对象/数组
+            5). 深拷贝包含函数数据的对象/数组
+ -->
+<script type="text/javascript">
+    
+    let obj1 = {name:"zhangsan",age:12};
+    console.log(obj1.toString());//[object Object]
+    let arr1 = [1,2,3,4];//数组重写了Object原型中的toString()
+    console.log(arr1.toString());//1,2,3,4
+    console.log(Object.prototype.toString.call(arr1));//[object Array]
+    let num1 = 123;
+    console.log(Object.prototype.toString.call(num1));//[object Number]
+    function Person() {
+
+    }
+    let person1 = new Person();
+    console.log(person1.toString());//[object Object]
+    console.log(Object.prototype.toString.call(person1));//[object Object]
+
+    console.log("--------------自定义检测数据类型--------------");
+    function checkType(target) {
+        console.log(Object.prototype.toString.call(target).slice(8,-1));
+    }
+    checkType(123);//Number
+    checkType(function () {
+
+    });//Function
+    checkType(null);//null
+    checkType(NaN);//Number
+    checkType([1,2,3]);//Array
+    checkType(person1);//Object
+
+
+    console.log("-----------------浅拷贝、深拷贝-----------------");
+    console.log("------------------contact 和 slice实现数组浅拷贝（拷贝不彻底）-----------------");
+    let arr = [1,2,3];
+    let arr2 = arr.concat();
+    arr2[0] = 4;
+    console.log(arr);//发现arr没受arr2的影响，那是不是就是深拷贝了呢？？？
+    arr = [1,2,3,{a:"zhangsan"}];
+    arr2 = arr.concat();
+    arr2[3].a = 4;
+    console.log(arr);//发现arr内的内容也跟着arr2变了，这就是拷贝不彻底，所以也是浅拷贝
+    
+    console.log("------------------Object.assign也是浅拷贝-----------------------");
+    //Object.assign是把对象的属性拿过来，而不是把整个对象拿过来，因此要看是不是对属性实现了深拷贝
+    let st1 = {name:"zhgnsan",age:11,gender:{choice1:"男",choice2:"女"}};
+    let st2 = {classId:1};
+    Object.assign(st2,st1);
+
+    st2.name = "wangwu";
+    console.log(st2);
+    console.log(st1);//发现st1内容没变，但并不是深拷贝。因为assign只是把键、值对拿过来了，改name也是基本数据类型，所以并不能说明
+    st2.gender.choice1 = "gay";
+    console.log(st1);//发现st1也跟着变了
+    
+    console.log("-------------------JSON.stringify/JSON.parse实现深拷贝--------------------");
+    //但JSON实现深拷贝仅限于对象和数组。因为JSON只能对对象和数组进行转化。
+    let obj = {name:"zhangsan",age:12};
+    let obj2 = JSON.parse(JSON.stringify(obj));
+    obj2.name = "lisi";
+    console.log(obj);//obj没受obj2的影响
+    
+    console.log("-----------------自定义深拷贝-------------------");
+    function checkTargetType(target) {
+        return Object.prototype.toString.call(target).slice(8,-1);
+    }
+    //只针对对象和数组的深拷贝，基本数据类型则直接输出（基本数据类型没有深浅之分）
+    function deepClone(target) {
+        let result;
+        let targetType = checkTargetType(target);
+        if (targetType == "Array"){
+            result = [];
+        }
+        else if (targetType == "Object"){
+            result = {};
+        }
+        else{
+            return target;
+        }
+        //for--in既能遍历对象，又能遍历数组！！！！！！！！
+        for (let targetKey in target) {
+            result[targetKey] = deepClone(target[targetKey]);
+        }
+        return result;
+    }
+    
+    obj = {name:"儿子",age:12,birthday:{month:11,day:30},parent:["爸爸","妈妈"]};
+    obj2 = deepClone(obj);
+    console.log(obj2);//拷贝成功，但是为什么下边才改了的属性，在这里输出的就是被改了的呢？？？？？？？？
+    obj2.parent = ["马云","董明珠"];
+    console.log(obj);//没受影响
+    
+    (function () {
+        let arr = [1,2,3,4];
+        console.log(arr);
+        let arr2 = arr.concat(4,5,6);
+        let arr3 = arr.concat();
+        console.log(arr);
+        console.log(arr2);
+        arr[0] = 0;
+        console.log(arr2);
+        console.log(arr);
+        console.log(arr3);
+    })()
+    
+
+</script>
+</body>
+</html>

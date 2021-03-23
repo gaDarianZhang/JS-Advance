@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+
+    //测试题1！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+    var A = function () {
+
+    }
+    console.log(A.prototype.n);// undefined
+    A.prototype.n = 1;
+    console.log(A.prototype);//很多自带的属性，在增加一个n:1
+    var b = new A();//this 指针指向原型对象之前的这块的内存
+    
+    A.prototype = {//原型对象又另外开辟了一块内存
+        n: 3,
+        m: 4
+    }//这样一来，把原型对象里边原来自带的一些属性都给搞没了
+    console.log(A.prototype);//只有n,m和__proto__
+    var c = new A();
+    console.log(b.n,b.m,c.n,c.m);//1 undefined 3 4
+    console.log(b.__proto__,c.__proto__);//两个不一样
+    
+    console.dir(A);
+    console.log(b);
+    console.log(A);
+
+    //测试题2
+    var F = function () {
+
+    }
+    var ff = new F();
+    Object.prototype.a = function () {
+        console.log("a()");
+    }
+    Function.prototype.b = function () {
+        console.log("b()");
+    }
+
+    var f = new F();
+
+    ff.a();//a()
+
+    F.a();//a()
+    F.b();//b()
+    f.a();//a()
+    f.b();//f.b() is not a function
+    
+    
+
+
+</script>
+</body>
+</html>

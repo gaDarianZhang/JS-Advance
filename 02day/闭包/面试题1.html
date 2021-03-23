@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+
+    // //代码片段一
+    var name = "The Window";
+    var object = {
+        name: "My Object",
+        getNameFunc: function () {
+            return function () {
+                return this.name;
+            };
+        }
+    };
+    // var result = object.getNameFunc();
+    // console.log(result());
+    console.log((object.getNameFunc())());//The window !!!!!!!!!!!!!!!!!
+    //函数自调用，this永远指向window!!!!!!!!!！！！！！！！！！！！！！！！！！！！
+    console.log(object.getNameFunc().call(object));
+
+    //代码片段二
+    var name2 = "The Window";
+    var object2 = {
+        name2: "My Object",
+        getNameFunc: function () {
+            var that = this; // 缓存this
+            return function () {
+                return that.name2;
+            };
+        }
+    };
+    console.log(object2.getNameFunc()()); //My Object
+
+</script>
+</body>
+</html>

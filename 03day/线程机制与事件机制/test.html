@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>test</title>
+</head>
+<body>
+<script type="text/javascript">
+    var timer1 = setInterval(function () {
+        console.log("timer1num:"+timer1);
+    },2000);
+    var str = "回调是否会重新入栈测试";
+    function fn(str){
+        console.log(str);
+    }
+    fn(str);
+</script>
+</body>
+</html>

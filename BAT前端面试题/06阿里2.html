@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+    1. 难度系数：⭐⭐⭐
+    2. 技术点：
+        1): 定时器
+        2): 意外全局变量
+        3): 作用域与作用域链
+        4): 变量查找
+-->
+<script type="text/javascript">
+
+    var a = 6;
+    setTimeout(function () {
+        console.log(0);
+        alert(a);
+        a = 666;
+    },0);//这个0是考察点。
+    console.log(1);
+    a = 66;
+    //1 0 66
+
+</script>
+</body>
+</html>

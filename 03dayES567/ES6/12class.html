@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+    class Person {
+        //static  添加给类对象的属性和方法
+        static parentObjAtt = "parentObjAtt";
+        static parentObjFun = function(){console.log("parentObjFun");};
+        constructor(name,age=10) {
+            //constructor内加this的属性和方法属于新建对象自身的
+            //constructor就是这个类体
+            console.log("person Constructor执行");
+            this.name = name;
+            this.age = age;
+            this.getNmae = function () {
+                console.log(this.name);
+            }
+            let noThis = "noThis";
+        }
+        //添加给了原型对象
+        showName(){
+            console.log(this.name);
+            // console.log(this.parentObjAtt);
+        }
+        //前边不能加ver let const,属于实例对象的属性
+        class = 11;
+
+
+        //setter&&getter
+        set addr(msg){
+            console.log("setter:"+msg);
+        }
+        get addr(){
+            return "getter";
+        }
+    }
+    console.log("console.log(typeof Person);");
+    console.log(typeof Person);//竟然是function
+    console.log("console.log(Person.prototype.constructor===Person);");
+    console.log(Person.prototype.constructor===Person);//true
+    console.log("console.dir(Person);");
+    console.dir(Person);
+    let p1 = new Person("zhangsan");
+    console.log("console.log(p1);");
+    console.log(p1);
+    console.log(" console.log(p1.class);");
+    console.log(p1.class);
+    console.log("console.log(p1.__proto__.constructor===Person);");
+    console.log(p1.__proto__.constructor===Person);
+    console.log("console.log(p1.constructor);");
+    console.log(p1.constructor);
+    console.log("p1.constructor.parentObjFun();");
+    p1.constructor.parentObjFun();
+    p1.getNmae();//zhangsan
+    p1.showName();//zhangsan
+    p1.__proto__.showName();//undefined
+
+    console.log(Person.name);
+    console.log(p1.addr);
+    p1.addr = "setter";
+
+    
+
+</script>
+</body>
+</html>

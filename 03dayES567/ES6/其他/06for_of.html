@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button>测试1</button>
+<button>测试2</button>
+<button>测试3</button>
+<script type="text/javascript">
+
+
+
+    let arr = [1,2,3,4,5,1,2,3,4];
+    let set = new Set(arr);
+    for(let item of set){
+      console.log(item);
+    }
+    console.log(...set);
+
+    let str = 'abc'
+    for(let item of str){
+      console.log(item);
+    }
+
+    console.log(...str);
+
+    let btns = document.getElementsByTagName('button');
+    for(let item of btns){
+      console.log(item);
+    }
+    console.log(...btns);
+
+    let objArr = [["name","zhangsan"],["age",12]];
+    let objMap = new Map(objArr);
+    console.log(objMap);
+    for (let objMapElement of objMap) {
+        console.log(objMapElement);//Array
+    }
+
+</script>
+</body>
+</html>

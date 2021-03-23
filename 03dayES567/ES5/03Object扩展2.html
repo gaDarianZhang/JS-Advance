@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+    /*
+    2. Object.defineProperties(object, descriptors)
+        * 作用: 为指定对象定义扩展多个属性
+        * get ：用来获取当前属性值得回调函数
+        * set ：修改当前属性值得触发的回调函数，并且实参即为修改后的值
+        * 存取器属性：setter,getter一个用来存值，一个用来取值
+    */
+
+    var obj = {
+        name: "zhangsan",
+        age: 13
+    }
+    
+    var result = Object.defineProperties(obj,{
+        gender:{
+            // set方法用来监视扩展属性的，
+            // 如果扩展属性一旦被修改set就调用，并且会自动将修改之后的属性值自动作为参数传入set函数内部
+            set:function (msg) {
+                console.log("给gender属性设置值了:"+msg);
+                // console.log(this);
+                // obj2[item] = msg;
+            },
+            get:function () {
+                console.log("有人要获取gender属性的值");
+                // console.log(this);
+                return "lesbian";
+            }
+        }
+    })
+    console.log(result===obj);//true
+    console.log(obj);
+    console.log(obj.gender);//有人要获取gender属性的值    lesbian
+    obj.gender = "nv";//给gender属性设置值了
+    console.log(obj.gender);
+ 
+    console.log("__________________________________________________________");
+    var obj2 = {
+        name: "lisi",
+        age: 23
+    }
+    
+    //把obj2的属性拷贝给obj3，且obj3的属性会随着obj2的属性的改变而改变
+    var obj3 = {};
+    for (var item in obj2) {
+        if(obj2.hasOwnProperty(item)){
+            // Object.defineProperties(obj3,{
+            //     [item]:{
+            //         // get:function () {
+            //         //     return obj2[item];
+            //         // },
+            //         // set:function (msg) {
+            //         //     console.log("设置了"+item+"属性值为"+msg);
+            //         // }
+            //         ////！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+            //         ////这两个都是回调函数，当被调用的时候，item是最后一个了，比如已经是age了。类似于onclick遇到的那些情况
+            //     }
+            // })
+
+            //使用匿名函数自调用来解决!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            (function (item) {
+                Object.defineProperties(obj3,{
+                    [item]:{
+                        get:function () {
+                            return obj2[item];
+                        },
+                        set:function (msg) {
+                            console.log("设置了"+item+"属性值为"+msg);
+                        }
+
+                    }
+                })
+            })(item)
+        }
+    }
+    console.log(obj3);
+    console.log(obj3.name);
+    obj2.name = "wangwu";
+    console.log(obj3);
+    console.log(obj3.name);
+    obj3.age = 11;
+
+    
+
+    
+
+</script>
+</body>
+</html>

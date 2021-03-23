@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+
+    // var a = 1;
+    // function f() {
+    //     a = 2;
+    //     b = 3;
+    // }
+    // // console.log(b);放在这里会报错
+    // f();
+    // console.log(a);
+    // console.log(b);
+
+    var a = 1, b = 2;
+
+    function Person() {
+        console.log(12);
+        a = 3;
+        return 5;
+    }
+
+    var c = new Person();
+    console.log(a);
+    console.log(c);
+
+    function f1(name){
+        function f2() {
+            console.log(name);
+        }
+        return f2;
+
+    }
+    var f = f1("zhangsan");
+    f();
+</script>
+</body>
+</html>

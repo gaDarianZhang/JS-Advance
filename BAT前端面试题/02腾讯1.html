@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+    1. 难度系数：⭐⭐⭐
+    2. 技术点：
+        1): 作用域与作用域链
+        2): 变量查找
+-->
+<script type="text/javascript">
+
+    var x = 10;
+    function fn() {
+        console.log(x);
+    }
+    function show(f) {
+        var x = 20;
+        f();
+    }
+
+    show(fn);//10
+    
+    console.log("-----------------");
+    function f1() {
+        let a = 1;
+        function f2() {
+            console.log(a);
+            console.log(this);
+        }
+        return f2;
+    }
+    
+    let f = f1();
+    f();//1 window
+
+</script>
+
+</body>
+</html>

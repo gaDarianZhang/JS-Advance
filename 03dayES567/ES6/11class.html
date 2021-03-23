@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+
+    // 1. 通过class定义类/实现类的继承
+    // 2. 在类中通过constructor定义构造方法
+    // 3. 通过new来创建类的实例
+    // 4. 通过extends来实现类的继承
+    // 5. 通过super调用父类的构造方法
+    // 6. 重写从父类中继承的一般方法
+
+    console.log("-----------定义类：class-----------");
+    let gender = "全局中的gender";
+    class Person{
+        static classId = "Person类";//把这个属性加给了Person对象，相当于Person.classId
+        gender = "男";//前边不能加let var,
+        // ！！！！！！！！！并且是属于对象的，不像showInfo方法是属于原型对象的
+        //！！！！！！类的构造方法！！！！！！！！！
+        constructor(name,age) {
+            let what = "what";
+            console.log("----constructor()----被调用");
+            this.name = name;
+            this.age = age;
+            this.getNmae = function () {
+                console.log(what);
+                return this.name;
+            }
+        }
+        //！！！！！！类的一般方法！！！！！！
+        //这个方法也不会直接加到实例上，而是在原型对象内，实例中的方法要写在constructor内
+        showInfo(){
+            //即使gender不是通过constructor写入的，但是要使用对象的gender还是要加this，
+            // 否则的话就直接去找全局中的变量去了，而不是找类中的。
+            console.log(`${this.age}岁的${this.name}的性别是${gender}`);
+        }
+    }
+    
+    let person1 = new Person("zhangsan",21);
+    console.log(person1);//Person {gender: "男", name: "zhangsan", age: 21}
+    console.log(person1.name,person1.gender);
+    person1.name = "lili";
+    person1.gender = "女";
+    console.log(person1);//！！！！name和gender都已改变！！！！！！
+    person1.showInfo();//21岁的lili的性别是全局中的gender
+    console.log(person1.getNmae());//lili
+    console.dir(Person);
+    
+    console.log("--------类的继承：extends--------");
+    
+
+</script>
+</body>
+</html>

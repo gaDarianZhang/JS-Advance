@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+
+    var name = "lisi";
+    var obj = {
+        name: "zhangsan",
+        getName: function () {
+            console.log(name);//按照作用域来找
+        }
+    }
+    obj.getName();
+
+    var obj2 = Object.create(obj, {
+        age: {
+            value: 13,
+            writable: true,
+            configurable: true
+        }
+    });
+    obj2.gender = "男";
+    console.log(obj2);
+
+    console.log("----------------------------------------------------");
+
+    var obj3 = {
+        name: "wangwu",
+        age: 12
+    };
+    var obj4 = {};
+    var sex = '男';
+    Object.defineProperties(obj4, {
+        gender: {
+            set: function (msg) {
+                console.log("试图修改gender属性值为",msg);
+                sex = msg;
+            },
+            get: function () {
+                console.log("试图得到gender属性值");
+                return sex;
+            },
+            //writable:true//报错：Cannot both specify accessors and a value or writable attribute, #<Object>
+        }
+    })
+    
+    console.log(obj4.gender);
+    obj4.gender = "女";
+    console.log(obj4.gender);
+
+</script>
+</body>
+</html>

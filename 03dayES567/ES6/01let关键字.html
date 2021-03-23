@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button>按钮1</button>
+<button>按钮2</button>
+<button>按钮3</button>
+<script type="text/javascript">
+    // 1. 作用:
+    //     * 与var类似, 用于声明一个变量
+    // 2. 特点:
+    //     !！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+    //     * 在块作用域内有效（可以用于解决回调函数中i的问题，之前的解决办法1、加index；2、用IIFE）
+    //     * 不能重复声明
+    //     * 会预处理，有变量提升， 但是不能提前使用提升的变量
+    // 3. 应用:
+    //     * 循环遍历加监听
+    //     * 使用let取代var是趋势
+
+    console.log(a);//undefined
+    var a = 123;
+    var a = 234;
+    // let a = 345;//也不行，还会报错，重复声明
+    console.log(a);
+    // console.log(userName);//
+    let userName;
+    userName = "zhangsan";
+    // let userName = "lisi";//报错：Identifier 'userName' has already been declared
+    console.log(userName);
+
+    function f1() {
+        //！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+        //f1前的作用域链是script------global,(可以去浏览器求证)
+        var age = 21;
+        let userName = "lisi";
+        // console.log(userName);
+        function f2() {
+            
+        }
+    }
+    f1();
+    
+    console.log("_________________________");
+    var btns = document.querySelectorAll("button");
+    for(let i=0;i<btns.length;i++){
+        btns[i].onclick = function () {
+            console.log(i);
+        }
+    }
+    
+</script>
+</body>
+</html>

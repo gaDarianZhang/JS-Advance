@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button>按钮</button>
+<script type="text/javascript">
+    // function Person(name, age) {
+    //     this.name = name;
+    //     this.age = age;
+    //     this.run = function () {
+    //         console.log(this.name + " is running!");
+    //     }
+    // }
+    // Person.prototype.getAge = function(){
+    //     console.log(this.name+"'s age is "+this.age);
+    // }
+    //
+    // console.log(Person);
+    // console.dir(Person);
+    // var person1 = new Person("Li",23);
+    // person1.__proto__.gender = "nv";//!!!!!!!!!!!!!!竟然也可以，但最好还是不要这样用
+    // console.log(person1.__proto__);
+    // console.log(person1);
+    // console.dir(person1);
+    // person1.run();
+    // person1.getAge();
+    // console.log(Person.prototype);
+    // console.dir(Object);
+    // console.log(Object.prototype);
+    // console.log(Object.__proto__);
+    // console.log(Function instanceof Object);
+    // console.log(Object instanceof Function);
+    // console.log(Object instanceof Object);
+    // console.log(Function instanceof Function);
+    //
+    // console.log(Person instanceof Function);
+    // console.log(Person instanceof Object);
+    //
+    // console.log(person1 instanceof Function);
+    // console.log(Person instanceof Person);
+
+
+    // console.log(a);//放这里会报错
+    function f1() {
+        // console.log(a);//放这里会报错
+        a = 1;
+        console.log(a);//1
+    }
+
+    // console.log(a);//这里也会报错
+    f1();
+    console.log(a);//1
+    //也就是函数内出现的未使用var的、且在全局中也未出现的变量，只有当该函数被调用时才会提到全局进行声明
+
+
+    function f2() {
+        console.log("f2");
+
+        function f3() {
+            console.log("f3");
+        }
+    }
+
+    console.log(1);
+    f2();
+
+    function f4() {
+        console.log("f4");
+    }
+    console.log(m,n);
+    if (1 > 2) {
+        var m = 2;
+    } else {
+        var n = 3;
+    }
+    console.log(m,n);
+
+    // console.log(i);//报错：cannot access 'i' before initialization
+    // console.log(j);//报错：cannot access 'j' before initialization
+    // console.log(x);////报错：cannot access 'j' before initialization
+    console.log(y);//undefined
+    let i = 2;
+    const j = 3;
+    let x;
+    var y;
+    console.log(i);//2
+    console.log(j);//3
+    console.log(x);//undefined
+    let obj1 = {name:"zhangsan",age:11};
+    let obj2 = obj1;
+    const OBJ = obj1;
+    OBJ.name = "lisi";
+    console.log(obj1.name);
+    
+    function f5(name){
+        let age = 12;
+        console.log(name+":"+12);
+    }
+    f5("wangwu");
+    
+    var btn = document.body.firstElementChild;
+    btn.onclick = function () {
+        console.log("点击");
+    }
+
+    
+</script>
+
+</body>
+</html>

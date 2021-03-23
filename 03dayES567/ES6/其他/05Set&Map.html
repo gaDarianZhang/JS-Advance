@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+
+    // 1. Set容器 : 无序不可重复的多个value的集合体
+    //     * Set()
+    //     * Set(array)
+    //     * add(value)
+    //     * delete(value)
+    //     * has(value)
+    //     * clear()
+    //     * size
+    // 2. Map容器 : 无序的 key不重复的多个key-value的集合体
+    //     * Map()
+    //     * Map(array)
+    //     * set(key, value)//添加
+    //     * get(key)
+    //     * delete(key)
+    //     * has(key)
+    //     * clear()
+    //     * size
+    console.log("------------Set-----------");
+    let arr = [1,2,3,4,1,2];
+    let setArr = new Set(arr);
+    console.log(setArr);
+    console.log(setArr.add(5),setArr);
+    console.log(setArr.delete(1),setArr);
+    console.log(setArr.size);
+    // console.log(setArr.clear());
+
+    let obj = {a:"a1",b:"b2"};
+    // let setObj = new Set(obj);//报错 object is not iterable (cannot read property Symbol(Symbol.iterator))
+    // console.log(setObj);
+
+    console.log("------------Map-----------");
+    let arr1 = [[3,4,5],["a","b","c"]];
+    let mapArr = new Map(arr1);
+    console.log(mapArr);//3=>4,"a"=>"b",没有后边的内容了
+    // console.log(new Map(obj));//报错 object is not iterable (cannot read property Symbol(Symbol.iterator))
+
+
+</script>
+</body>
+</html>

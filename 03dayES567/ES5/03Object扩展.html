@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+    /*
+    1. Object.create(prototype, [descriptors])
+        * 作用: 以指定对象为新对象的__proto__  ,注意，并不是将指定对象的原型对象作为新对象的原型对象
+        * 返回值：一个新对象，带着指定的原型对象和属性。
+        * 为新的对象指定新的属性, 并对属性进行描述
+            - value : 指定值
+            - writable : 标识当前属性值是否是可修改的, 默认为false
+            - configurable: 标识当前属性是否可以被删除 默认为false
+            - enumerable： 标识当前属性是否能用for in 枚举 默认为false
+    2. Object.defineProperties(object, descriptors)
+        * 作用: 为指定对象定义扩展多个属性
+        * get ：用来获取当前属性值得回调函数
+        * set ：修改当前属性值得触发的回调函数，并且实参即为修改后的值
+        * 存取器属性：setter,getter一个用来存值，一个用来取值
+
+     */
+
+    var obj = {
+        name: "zhangsan",
+        getNmae: function () {
+            return name;
+        }
+    };
+
+    var obj2 = {
+        class: 13,
+        day: 31
+    }
+    //！！！！！！！！！！！！！！！！！！！！！！！！！
+    // 因为返回值是一个（带着指定原型对象和属性的）新对象，
+    // 所以obj2相当于被清空后重新赋值
+    obj2 = Object.create(obj,{
+        age:{//当前扩展属性的配置对象
+            value:23,writable:true,enumerable:true//当前属性的修饰属性
+        },
+        gender:{value:"男"},
+        name:{value:"lisi",configurable:true,enumerable:true}
+    });
+
+    console.log(obj2);
+    console.log(obj2.name);//lisi
+    console.log(obj2.__proto__.name);//zhangsan
+    obj2.age = 1;//默认不能修改，要加writable属性
+    console.log(obj2);
+
+    for (var obj2Key in obj2) {//for in枚举的时候还会把原型内的属性列出来
+        if (obj2.hasOwnProperty(obj2Key)){
+            console.log(obj2Key);
+        }
+
+    }
+
+    delete obj2.name;
+    console.log(obj2);
+
+    console.log("--------------------------------------");
+
+
+
+    // Shape - 父类(superclass)
+    function Shape() {
+        this.x = 0;
+        this.y = 0;
+    }
+
+    // 父类的方法
+    Shape.prototype.move = function(x, y) {
+        this.x += x;
+        this.y += y;
+        console.info('Shape moved.');
+    };
+
+    // Rectangle - 子类(subclass)
+    function Rectangle() {
+        Shape.call(this); // call super constructor.
+    }
+
+
+    // 子类续承父类
+    //!！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+    //！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+    Rectangle.prototype = Object.create(Shape.prototype);//在proto中找不到move,要再找一级（无法理解？？？？？）。且proto中不含父类的基本属性
+    //因为Object.create(obj)就是将obj作为新对象的__proto__，那么这里就是将Shape.prototype作为Rectangle.prototype的__proto__，所以要再找一级
+    // Rectangle.prototype = new Shape();//在proto中找不到move,要再找一级。且proto中含有父类的基本属性（可以理解）
+    // Rectangle.prototype = Shape.prototype;//直接在proto中就有move了（可以理解）
+
+    Rectangle.prototype.constructor = Rectangle;
+    Rectangle.prototype.getLocation = function(){
+        console.log(this.x,this.y);
+    }
+
+    var rect = new Rectangle();
+
+    console.dir(Shape);
+    console.dir(Rectangle);
+    console.dir(rect);
+
+    console.log('Is rect an instance of Rectangle?',
+        rect instanceof Rectangle); // true
+    console.log('Is rect an instance of Shape?',
+        rect instanceof Shape); // true
+    rect.move(1, 1); // Outputs, 'Shape moved.'
+    rect.getLocation();
+
+    // Rectangle.prototype = Object.create(Shape.prototype,{
+    //     name:{value:"wangwu",writable:false,configurable:true,enumerable:true},
+    //     age:{},
+    //     gender:{}
+    // })
+
+
+
+</script>
+</body>
+</html>

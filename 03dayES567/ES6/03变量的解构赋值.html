@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+
+    // 1. 理解:
+    //     * 从对象或数组中提取数据, 并赋值给变量(多个)
+    // 2. 对象的解构赋值
+    //     let {n, a} = {n:'tom', a:12}//！！！！！！！！变量名必须和对象属性完全一样！！！！！！！！！
+    //     n,a相当于是在全局中声明的变量
+    // 3. 数组的解构赋值
+    //     let [a,b] = [1, 'atguigu'];
+    // 4. 用途
+    //     * 给多个形参赋值
+    //     function fun({name,age}){}
+    //     fun(obj)
+    
+    
+    console.log("------------对象的解构赋值--------------");
+    var obj = {name:"zhangsan",age:23};
+    var {name,age} = obj;//不能用[name,age] = {}
+    var {na,ag} = obj;
+    console.log(na,ag);//undefined undefined 变量名和属性名要一样
+    console.log(name,age);
+
+
+    let obj2 = {name2:"lisi",age2:12};
+    let {name2} = obj2;//变量名和属性名要一样，而且可以单独解构赋值
+    console.log(name2);
+    // let {name2,age2} = obj2;//报错： Identifier 'name2' has already been declared
+    let {age2} = obj2;
+    console.log(name2,age2);
+    console.log("------------数组的解构赋值-------------");
+    let arr = [0,1,2,3,4,5];
+    let [a,b,,,e] = arr;//！！！！！！！！！跳过的数组元素用逗号隔开，后边的可以不管！！！！！！！！！！！
+    console.log(a,b,e);
+    
+    console.log("------------解构赋值的应用-------------");
+    function func({name,age}) {
+        console.log(name,age);
+    }
+
+    // func(obj2);//undefined undefined
+
+    func(obj);
+    
+    
+    
+
+</script>
+</body>
+</html>

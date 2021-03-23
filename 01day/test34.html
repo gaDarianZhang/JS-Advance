@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>test34</title>
+</head>
+<body>
+<script type="text/javascript">
+    function foo(x, y, z) {
+
+        // quantity of defined function arguments (x, y, z)
+        alert(foo.length); // 3
+
+        // quantity of really passed arguments (only x, y)
+        alert(arguments.length); // 2
+
+        // reference of a function to itself
+        alert(arguments.callee === foo); // true
+
+        // parameters sharing
+
+        alert(x === arguments[0]); // true
+        alert(x); // 10
+
+        arguments[0] = 20;
+        alert(x); // 20
+
+        x = 30;
+        alert(arguments[0]); // 30
+
+        // however, for not passed argument z,
+        // related index-property of the arguments
+        // object is not shared
+
+        z = 40;
+        alert(arguments[2]); // undefined
+
+        arguments[2] = 50;
+        alert(z); // 40
+
+    }
+
+    foo(10, 20);
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+
+    getName();//5 function的提升
+    function Foo() {
+        getName = function () {
+            alert(1);
+        }
+        return this;
+    }
+    Foo.getName = function () {
+        alert(2);
+    }
+    Foo.prototype.getName = function () {
+        alert(3);
+    }
+
+    //1.先提升function name(){}
+    //2.然后再提升var，遇到有重名就忽略
+    //3.但是，
+    var getName = function () {
+        alert(4);
+    }
+    function getName() {
+        alert(5);
+    }
+
+    //请写出一下的输出结果
+    Foo.getName();//2
+
+    //在这条语句执行前，getName = function(){}就覆盖了被提升的function getName(){}
+    getName();//4
+
+    //Foo()函数自调用，返回值是 return this，是window。所以这句就相当于window.getName(),
+    //但是，和全局中的getName()（相当于window.getName()）还是不一样的。因为Foo()内的第一句
+    //没有var，那么就是用的全局中的getName(),就修改了全局的getName()
+    Foo().getName();//1
+    getName();//1
+    new Foo.getName();//2  构造函数new的过程其实就是调用call把this绑定到对象身上。Foo.getName.call(obj)
+    // 在这个过程中函数内部是会运行计算的。！！！！！！！！！！！！！！！！！！！！
+    new Foo().getName();//3  == (new Foo()).getName()!!!!!!!!!!!!!!!!!!!!!!
+    var c = new new Foo().getName();//3 ==new obj.getName()
+    console.log(c.__proto__.constructor == new Foo().getName);//true
+
+
+</script>
+</body>
+</html>

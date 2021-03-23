@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+    1. 难度系数：⭐⭐⭐
+    2. 技术点：
+        1): 变量提升
+        2): IIFE
+        3): 作用域与作用域链
+        4): 变量查找
+-->
+<script type="text/javascript">
+
+    var name = "Word!";
+    (function () {
+        if(typeof name === "undefined"){
+            var name = "Jack";//相当于把var name提出了if，提到了函数最上边？？？？？？？？？？？？？？
+            console.log(name);
+        }else{
+            console.log(name);
+        }
+    })()
+
+    console.log("------------------test------------------");
+    function f(){
+        console.log(a);
+        console.log(b);
+        if(typeof a === "undefined"){
+            var a = 3;
+        }
+        else {
+            var b = 4;
+        }
+    }
+    f();//undefined undefined！！！！！！！！！！！！！！！！！！！！！！！！
+    // console.log(aa);//报错：aa is not defined
+    if(true){
+        let aa = 11;
+    }
+    else {
+        let aa = 22;
+    }
+    // console.log(aa);//报错：aa is not defined
+    //let有自己的块级作用域
+    // console.log(bb);//Cannot access 'bb' before initialization
+    let bb;
+    console.log(bb);//undefined
+</script>
+</body>
+</html>

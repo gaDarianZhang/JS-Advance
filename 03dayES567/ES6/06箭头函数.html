@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="btn1">点击按钮1</button>
+<button id="btn2">点击按钮2</button>
+<script type="text/javascript">
+    // * 作用: 定义匿名函数
+    // * 基本语法:
+    //     * 没有参数: () => console.log('xxxx')
+    //     * 一个参数: i => i+2
+    //     * 大于一个参数: (i,j) => i+j
+    //     * 函数体不用大括号: 默认返回结果
+    //     * 函数体如果有多个语句, 需要用{}包围，若有需要返回的内容，需要手动返回
+    // * 使用场景: 多用来定义回调函数
+    //
+    // * 箭头函数的特点：
+    //     1、简洁
+    //     2、箭头函数没有自己的this，箭头函数的this不是调用的时候决定的，而是在定义的时候处在的上下文对象就是它的this
+    //     3、扩展理解： 箭头函数的this看外层的是否有函数，
+    //         如果有，外层函数的this就是内部箭头函数的this，
+    //         如果没有，则this是window。
+
+    console.log("----------箭头函数----------");
+    //当箭头函数没有形参的时候，形参位置的小括号不能省略
+    let fun = ()=>console.log('箭头函数');
+    fun();
+    //当箭头函数只有一个形参的时候，形参位置的小括号可以省略
+    var a = i=>i+1;
+    console.log(a(3));
+    console.log((()=>{console.log("我要自调用匿名函数了");console.log(123);return 234;})());//匿名箭头函数自调用
+    
+    console.log("---------------函数体只有一条语句且省略大括号--------------");
+    function f1() {
+        return "这是f1()的返回值";
+    }
+    //！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+    //当函数体只有一条语句，且省略掉函数体的大括号时，箭头函数的返回值就是 这条语句的返回值或者表达式结果
+    //当只有一条语句且没省略大括号时，那么就像正常函数体一样。
+    var f = ()=>f1();
+    console.log(f());
+
+    console.log((()=>console.log("后边的undefined是我consl的return值，不是这个箭头函数的return"))());
+
+    console.log("------------------箭头函数this的指向问题---------------");
+    let btn1 = document.getElementById("btn1");
+    let btn2 = document.getElementById("btn2");
+    // btn1.onclick = function () {
+    //     console.log(this);
+    // }//<button id="btn1">点击按钮1</button>
+
+    // btn2.onclick = ()=>console.log(this);//window
+
+    let obj1 = {
+        name: "zhangsan",
+        test(){
+            console.log("test()的this是谁呢：",this);
+            btn1.onclick = ()=>{console.log(this);};
+        }
+    }
+    console.log("----------绑到obj1上-----------");
+    obj1.test();//obj，点击btn1也是obj
+    //用call来换一下this
+    console.log("-----------用call给换了this----------");
+    obj1.test.call(this);//window,点击btn1也是window
+
+    //再用箭头函数换this
+    console.log("-----------再用箭头函数换this------------");
+    let obj2 = {
+        name: "zhangsan",
+        test:()=>{
+            console.log("test()的this是谁呢：",this);//window
+            btn2.onclick = ()=>{console.log(this);};//window
+        }
+    }
+    obj2.test();//window
+    console.dir(obj2);
+
+    console.log("---------易错---------");
+    function Animal(name,age) {
+        this.name = name;
+        this.age = age;
+        this.getName = () => {
+            console.log(this);
+            return this.name;
+        }
+        console.log(this);
+    }
+    console.dir(Animal);
+    let an1 = new Animal("cat",1);
+    console.log(an1);
+    console.dir(an1);
+    //！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+    //其实可以这样理解，在这个构造函数用来new一个对象时，构造函数内console.log(this)的this就是obj，
+    //那么箭头函数从构造函数继承来的this当然也不是window了。
+    console.log(an1.getName());//Animal    虽然是箭头函数，但this还是Obj
+    an1.getName.call(window);//Animal    这是输出的this还是obj，如果getName不是箭头函数的话，就是window了
+                             //至少说明了一点，就是箭头函数的this不会因为调用者不同而改变！！！！！！！
+
+</script>
+</body>
+</html>

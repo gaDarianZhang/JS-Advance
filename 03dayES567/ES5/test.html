@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+    
+    var obj = {
+        name: "zhangsan",
+        age: 23,
+        getNmae: function () {
+            return name;
+        }
+    };
+    var obj2 = {
+        class: 13,
+        day: 31
+    };
+
+
+    obj2 = Object.create(obj);
+    //！！！！！！！！！！！！！！！！！！！！！！！！！
+    // 因为返回值是一个（带着指定原型对象和属性的）新对象，
+    // 所以obj2相当于被清空后重新赋值
+    
+    console.log(obj2);//！！！！！！！！！！！！！！！！！！！！！！！！！！
+    //obj2里面不再含有原来的属性，因为Object.create返回的是一个新对象。
+
+</script>
+</body>
+</html>

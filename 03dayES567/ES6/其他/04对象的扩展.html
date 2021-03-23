@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+
+    // 1. Object.is(v1, v2)
+    //     * 判断2个数据是否完全相等
+    // 2. Object.assign(target, source1, source2..)
+    //     * 将源对象的属性复制到目标对象上
+    // 3. 直接操作 __proto__ 属性
+    //     let obj2 = {};
+    //     obj2.__proto__ = obj1;
+
+    console.log(0 === -0);//true
+    console.log(NaN === NaN);//false
+
+    console.log(Object.is(0, -0));//false
+    console.log(Object.is(NaN, NaN));//true
+    console.log(2 === parseInt('2.32'));//true
+    console.log(Object.is(2, parseInt('2.32')));//true
+
+    let obj1 = {}, obj2 = {a: 12, b: 23}, obj3 = {b:34,c:45};
+    console.log(Object.assign(obj1,obj2,obj3));//a: 12, b: 34, c: 45
+    console.log(Object.assign(obj1,obj3,obj2));//a: 12, b: 23, c: 45
+    obj1.__proto__.newPro = "newPro";
+    console.dir(Object);
+
+
+</script>
+</body>
+</html>

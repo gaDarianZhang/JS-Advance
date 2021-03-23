@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+    
+    // function fabnaci(num) {
+    //     return num>=3 ? fabnaci(num-1)+fabnaci(num-2) : 1;
+    // }
+    //
+    // console.log(fabnaci(7));
+
+    function f(num) {
+        console.log("______");
+        if (num<3){
+            return 1;
+        }
+
+        // var result = f(num-1) + f(num-2);
+        // return result;
+        return f(num-1) + f(num-2);
+    }
+    
+    console.log(f(7));
+</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+    
+    console.log("--------------数组去重1：forEach+indexOf-------------");
+    let arr = [1,2,11,5,3,8,2,4,3,5];
+    console.log(arr.indexOf(10));//-1,没有就返回-1
+    function uniqArr1(arr) {
+        let newArr = [];
+        arr.forEach(function (item, index) {
+            if (newArr.indexOf(item)==-1){
+                newArr.push(item);
+            }
+        })
+        return newArr;
+    }
+    console.log(uniqArr1(arr));
+
+    console.log("--------------数组去重2：Set+for of-------------");
+    // function uniqArr2(arr) {
+    //     let newArr = [];
+    //     let set = new Set(arr);
+    //     for (let setElement of set) {
+    //         newArr.push(setElement);
+    //     }
+    //     return newArr;
+    // }
+
+    function uniqArr2(arr){
+        let newArr = [];
+        for (let setElement of new Set(arr)) {
+            newArr.push(setElement);
+        }
+        return newArr;
+    }
+
+    console.log("--------------数组去重3：Set+三点-------------");
+
+    // function uniqArr3(arr){
+    //     return [...new Set(arr)];
+    // }
+    // console.log(uniqArr3(arr));
+
+    let uniqArr3 = arr => [...new Set(arr)];
+    console.log(uniqArr3(arr));
+    
+    console.log((arr=>[...new Set(arr)])(arr));
+
+
+    
+
+
+</script>
+</body>
+</html>

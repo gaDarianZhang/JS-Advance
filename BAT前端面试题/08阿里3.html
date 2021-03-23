@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+    1. 难度系数：⭐⭐⭐
+    2. 技术点：
+        1): this
+        2): 闭包
+-->
+<script type="text/javascript">
+
+    var name = "A";
+    var object = {
+        name:"B",
+        getNameFunc: function () {
+            return function () {
+                return this.name;
+            }
+        }
+    };
+
+    console.log(object.getNameFunc()());//A
+
+
+    var name2 = "A";
+    var object2 = {
+        name2:"B",
+        getNameFunc: function () {
+            var that = this;
+            return function () {
+                return that.name2;
+            }
+        }
+    };
+    console.log(object2.getNameFunc()());//B
+
+</script>
+</body>
+</html>

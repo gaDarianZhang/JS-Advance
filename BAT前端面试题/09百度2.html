@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+    1. 难度系数：⭐⭐⭐
+    2. 技术点：
+        1): 原型与原型链
+        2): 对象属性查找
+-->
+<script type="text/javascript">
+
+    function A(){
+
+    }
+    A.prototype.n = 1;
+    var b = new A();
+    A.prototype = {
+        n:2,
+        m:3
+    };//b还在指向原来的原型对象的内存空间，这里是又重新开辟了空间。
+    var c = new A();
+
+    console.log(b.n,b.m,c.n,c.m);//1,undefined,2,3
+
+</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+    1. 难度系数：⭐⭐⭐⭐
+    2. 相关技术点：
+        1): 引用变量赋值
+        2): 内存分析
+        3): 函数调用传参
+        4): 运算符的优先级
+
+-->
+<script type="text/javascript">
+
+    //1
+    var obj = {n:1};
+    var obj2 = obj;
+    obj2.n = 2;
+    console.log(obj.n);//2
+
+    //2
+    function fn1(a) {
+        a.n = 3;
+    }
+    fn1(obj);
+    console.log(obj.n);//3
+
+    //3
+    function fn2(a) {//传参这里a和obj是指向同一个内存地址
+        a = {n:4};//在这里又重新给a分配了一块内存
+    }
+    fn2(obj);
+    console.log(obj.n);//3
+
+    console.log("！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！");
+    var a = {n:1};
+    var b = a;
+    //操作  对象的属性的优先级高于给对象本身赋值！！！！！！！！！
+    a.x = a = {n:2};//先是a.x = {n:2},再是a={n:2}
+    console.log(a.n,b.n);//2,1
+    console.log(a.x,b.x);//不是{n:2},undefined，而是undefined,{n:2}
+    
+    console.log("------------------test-----------------");
+    let obj5 = {n:2};
+    obj5.x = obj5;
+    console.log(obj5);//套娃
+    
+    console.log(obj5 === obj5.x);//true
+    
+
+</script>
+</body>
+</html>

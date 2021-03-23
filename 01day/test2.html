@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+    // function f1() {
+    //     let name = "zhangsan";
+    //     function f2() {
+    //         console.log(name);
+    //     }
+    //     return f2;
+    // }
+    //
+    // let f = f1();
+    // f();
+
+    let a = 2;
+
+    function foo() {
+        let b;
+        console.log(a);
+        // 会输出2还是3？当然是2了，根据作用域链来查找。foo的上一级作用域很明显是全局作用域
+    }
+
+    function bar() {
+        let a = 3;
+        foo();
+    }
+
+    bar();//2
+</script>
+</body>
+</html>
